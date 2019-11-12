@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import os
+import os, time
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "catchpick.settings")
 import django
@@ -16,7 +16,8 @@ soup = BeautifulSoup(resp.text, 'html.parser')
 titles = soup.select('.ah_list .ah_k')
 
 for title in titles:
-    TitleData(title=title.get_text()).save()
+    TitleData(title=title.get_text(),time= time.time()).save()
+
 
 
 
