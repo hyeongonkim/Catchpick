@@ -25,29 +25,37 @@ driver.find_element_by_id("_search_option_btn").click()
 
 
 def determineCategory(localCategory):
-    outCategory = ['정치', '경제', '사회', '국제', '스포츠', '문화', '기타'] #연예기사는 문화로
-    return 0
+    ourCategory = ['정치', '경제', '사회', '국제', '스포츠', '문화']
+    if localCategory in ourCategory:
+        return localCategory
+    elif localCategory == '연예':
+        return '문화'
+    elif localCategory == '문화·건강':
+        return '문화'
+    return '기타'
 
 
 def CScategory(link):
+    if (link.count('biz.chosun.com') >= 1):
+        return '경제'
     driver.get(link)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
-    return str(soup.select('#news_cat_trig_id')).split('\'Art_List\');">')[1][:-5]
+    return determineCategory(str(soup.select('#aside_sec_head_news_id > h3 > a')).split('">')[1][:-10])
 
 
 def KHcategory(link):
     driver.get(link)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
-    return str(soup.select('#container > div.art_side > div:nth-child(3) > div > div')).split('strong>')[1][:-2]
+    return determineCategory(str(soup.select('#container > div.art_side > div:nth-child(3) > div > div')).split('strong>')[1][:-2])
 
 
 def CAcategory(link):
     driver.get(link)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
-    return str(soup.select('body > div.doc > header > div.mh > div > h2 > a')).split('"_self">')[1][:-5]
+    return determineCategory(str(soup.select('body > div.doc > header > div.mh > div > h2 > a')).split('"_self">')[1][:-5])
 
 
 def SUcategory(link):
@@ -56,7 +64,7 @@ def SUcategory(link):
     driver.get(link)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
-    return str(soup.select('body > div.wrap > div.top > div.top_menuBG > div > ul > li.sec_s > a')).split('"')[3].replace('최신', '')
+    return determineCategory(str(soup.select('body > div.wrap > div.top > div.top_menuBG > div > ul > li.sec_s > a')).split('"')[3].replace('최신', ''))
 
 
 def HKRcategory(link):
@@ -79,7 +87,7 @@ def HKcategory(link):
     driver.get(link)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
-    return str(soup.select('#HA > h2 > a')).split('">')[1][:-5]
+    return determineCategory(str(soup.select('#HA > h2 > a')).split('">')[1][:-5])
 
 
 def getNews(company, keyword):
@@ -119,9 +127,16 @@ companys = ['ca_1032', 'ca_1081', 'ca_1023', 'ca_1025', 'ca_1028', 'ca_1469'] #�
 #     getNews(i, '전현무')
 #
 # for i in companys:
-#     getNews(i, '타다')
+#     getNews(i, '부동산')
 #
 # for i in companys:
 #     getNews(i, '박찬주')
+#
+# print(KHcategory('http://news.khan.co.kr/kh_news/khan_art_view.html?artid=201911011401001&code=940301'))
+# print(SUcategory('https://www.seoul.co.kr/news/newsView.php?id=20191111011011&wlog_tag3=naver'))
+# print(CScategory('http://news.chosun.com/site/data/html_dir/2019/11/13/2019111300183.html?utm_source=naver&utm_medium=original&utm_campaign=news'))
+# print(CAcategory('https://news.joins.com/article/23631213'))
+# print(HKRcategory('http://www.hani.co.kr/arti/opinion/column/916770.html'))
+# print(HKcategory('https://www.hankookilbo.com/News/Read/201911101899061149?did=NA&dtype=&dtypecode=&prnewsid='))
 
 driver.quit()
