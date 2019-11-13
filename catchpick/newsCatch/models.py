@@ -31,6 +31,7 @@ class VerifiedData(models.Model):
     title = models.CharField(max_length=100)
     time = models.CharField(max_length=100, default=0)
     maxRank = models.CharField(max_length=100, default=21)
+    category = models.CharField(max_length=100)
     news_KH_title = models.CharField(max_length=100)
     news_KH_link = models.CharField(max_length=100)
     news_HKR_title = models.CharField(max_length=100)
