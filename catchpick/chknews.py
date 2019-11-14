@@ -1,7 +1,7 @@
-import requests
 from bs4 import BeautifulSoup
 import os, time
 from selenium import webdriver
+from collections import Counter
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "catchpick.settings")
 import django
@@ -13,7 +13,7 @@ from newsCatch.models import NewsTestData
 # driver_path = os.path.join(os.path.dirname(__file__), 'chromedriver')
 driver_path = os.path.join('/Users/simonkim/PycharmProjects/KTISparse/catchpick/macchromedriver')
 options = webdriver.ChromeOptions()
-options.add_argument('headless')
+# options.add_argument('headless')
 options.add_argument('window-size=1920x1080')
 options.add_argument("disable-gpu")
 options.add_argument('no-sandbox')
@@ -32,6 +32,8 @@ def determineCategory(localCategory):
     elif localCategory == '연예':
         return '문화'
     elif localCategory == '문화·건강':
+        return '문화'
+    elif localCategory == '생활·문화':
         return '문화'
     return '기타'
 
@@ -61,18 +63,6 @@ def CAcategory(link):
         str(soup.select('body > div.doc > header > div.mh > div > h2 > a')).split('"_self">')[1][:-5])
 
 
-def SUcategory(link):
-    driver.get(link)
-    html = driver.page_source
-    soup = BeautifulSoup(html, 'html.parser')
-    chkEn = str(soup.select('#en_navi > center > div > p > a > img'))
-    if '서울en' in chkEn:
-        return '문화'
-    return determineCategory(
-        str(soup.select('body > div.wrap > div.top > div.top_menuBG > div > ul')).split('<a href="')[3].split('"')[2].replace(
-            '최신', ''))
-
-
 def HKRcategory(link):
     if 'culture' in link:
         return '문화'
@@ -89,14 +79,20 @@ def HKRcategory(link):
     return '기타'
 
 
-def HKcategory(link):
+def SBScategory(link):
     driver.get(link)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
-    chkEn = str(soup.select('body > header > div.MmenuCon > div > h1 > a > img'))
-    if 'logo_enter' in chkEn:
-        return '문화'
-    return determineCategory(str(soup.select('#content > article > div.content-body > div > section > h3 > span'))[7:-8])
+    return determineCategory(
+        str(soup.select('#container > div.w_inner > div.w_top_cs > ul > li.cate03 > a')).split('">')[1][:-5])
+
+
+def YTNcategory(link):
+    driver.get(link)
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'html.parser')
+    return determineCategory(
+        str(soup.select('#zone1 > div.article_info > div > b'))[4:-5])
 
 
 def getNews(company, keyword):
@@ -137,41 +133,14 @@ def getNews(company, keyword):
     return [title1, link1, time1]
 
 
-companys = ['ca_1032', 'ca_1081', 'ca_1023', 'ca_1025', 'ca_1028', 'ca_1469']  # 경향, 서울, 조선, 중앙, 한겨레, 한국
+companys = ['ca_1032', 'ca_1023', 'ca_1025', 'ca_1028', 'ca_1056', 'ca_1214', 'ca_1055', 'ca_1052']  # 경향, 조선, 중앙, 한겨레, KBS, MBC, SBS, YTN
 
-# for i in NewsTestData.objects.all():
-#     title = i.title
-#     news = []
-#     newsCnt = 0
-#     companyCnt = 0
-#     for j in companys:
-#         nowData = getNews(j, title)
-#         if title not in nowData[0] or ('분 전' not in nowData[2] and '시간 전' not in nowData[2]):
-#             companyCnt = companyCnt + 1
-#             continue
-#         if companyCnt == 0:
-#             nowData.append(KHcategory(nowData[1]))
-#         elif companyCnt == 1:
-#             nowData.append(SUcategory(nowData[1]))
-#         elif companyCnt == 2:
-#             nowData.append(CScategory(nowData[1]))
-#         elif companyCnt == 3:
-#             nowData.append(CAcategory(nowData[1]))
-#         elif companyCnt == 4:
-#             nowData.append(HKRcategory(nowData[1]))
-#         elif companyCnt == 5:
-#             nowData.append(HKcategory(nowData[1]))
-#         news.append(nowData)
-#         newsCnt = newsCnt + 1
-#         companyCnt = companyCnt + 1
-#     if newsCnt >= 4:
-#         print(news) # 모델에 데이터 삽입
-
-
-# testData
+#testData
 testDatas = ['흑사병']
+# for i in NewsTestData.objects.all():
 for i in testDatas:
     title = i
+    # title = i.title
     news = []
     newsCnt = 0
     companyCnt = 0
@@ -181,27 +150,41 @@ for i in testDatas:
             companyCnt = companyCnt + 1
             continue
         if companyCnt == 0:
-            nowData.append(KHcategory(nowData[1]))
             nowData.append('경향')
         elif companyCnt == 1:
-            nowData.append(SUcategory(nowData[1]))
-            nowData.append('서울')
-        elif companyCnt == 2:
-            nowData.append(CScategory(nowData[1]))
             nowData.append('조선')
-        elif companyCnt == 3:
-            nowData.append(CAcategory(nowData[1]))
+        elif companyCnt == 2:
             nowData.append('중앙')
-        elif companyCnt == 4:
-            nowData.append(HKRcategory(nowData[1]))
+        elif companyCnt == 3:
             nowData.append('한겨레')
+        elif companyCnt == 4:
+            nowData.append('KBS')
         elif companyCnt == 5:
-            nowData.append(HKcategory(nowData[1]))
-            nowData.append('한국')
+            nowData.append('MBC')
+        elif companyCnt == 6:
+            nowData.append('SBS')
+        elif companyCnt == 7:
+            nowData.append('YTN')
         news.append(nowData)
         newsCnt = newsCnt + 1
         companyCnt = companyCnt + 1
     if newsCnt >= 4:
-        print(news)  # 모델에 데이터 삽입
-
+        category = []
+        for i in news:
+            if '경향' == i[3]:
+                category.append(KHcategory(i[1]))
+            elif '조선' == i[3]:
+                category.append(CScategory(i[1]))
+            elif '중앙' == i[3]:
+                category.append(CAcategory(i[1]))
+            elif '한겨레' == i[3]:
+                category.append(HKRcategory(i[1]))
+            elif 'SBS' == i[3]:
+                category.append(SBScategory(i[1]))
+            elif 'YTN' == i[3]:
+                category.append(YTNcategory(i[1]))
+        cnt = Counter(category)
+        mostCategory = cnt.most_common(1)[0][0]
+        print(news) # 모델에 데이터 삽입
+        print(mostCategory)
 driver.quit()
