@@ -50,7 +50,7 @@ def KHcategory(link):
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
     return determineCategory(
-        str(soup.select('#container > div.art_side > div:nth-child(3) > div > div')).split('strong>')[1][:-2])
+        str(soup.select('#header > div.logo_area > div.sec_title > a')).split(');">')[1][:-5])
 
 
 def CAcategory(link):
@@ -74,17 +74,17 @@ def SUcategory(link):
 
 
 def HKRcategory(link):
-    if link.count('culture') >= 1:
+    if 'culture' in link:
         return '문화'
-    elif link.count('politics') >= 1:
+    elif 'politics' in link:
         return '정치'
-    elif link.count('society') >= 1:
+    elif 'society' in link:
         return '사회'
-    elif link.count('economy') >= 1:
+    elif 'economy' in link:
         return '경제'
-    elif link.count('international') >= 1:
+    elif 'international' in link:
         return '국제'
-    elif link.count('sports') >= 1:
+    elif 'sports' in link:
         return '스포츠'
     return '기타'
 
@@ -96,7 +96,7 @@ def HKcategory(link):
     chkEn = str(soup.select('body > header > div.MmenuCon > div > h1 > a > img'))
     if 'logo_enter' in chkEn:
         return '문화'
-    return determineCategory(str(soup.select('#HA > h2 > a')).split('">')[1][:-5])
+    return determineCategory(str(soup.select('#content > article > div.content-body > div > section > h3 > span'))[7:-8])
 
 
 def getNews(company, keyword):
@@ -169,7 +169,7 @@ companys = ['ca_1032', 'ca_1081', 'ca_1023', 'ca_1025', 'ca_1028', 'ca_1469']  #
 
 
 # testData
-testDatas = ['나경원']
+testDatas = ['흑사병']
 for i in testDatas:
     title = i
     news = []
