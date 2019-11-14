@@ -40,10 +40,14 @@ class VerifiedData(models.Model):
     news_CS_link = models.CharField(max_length=100)
     news_CA_title = models.CharField(max_length=100)
     news_CA_link = models.CharField(max_length=100)
-    news_SU_title = models.CharField(max_length=100)
-    news_SU_link = models.CharField(max_length=100)
-    news_HK_title = models.CharField(max_length=100)
-    news_HK_link = models.CharField(max_length=100)
+    news_KBS_title = models.CharField(max_length=100)
+    news_KBS_link = models.CharField(max_length=100)
+    news_MBC_title = models.CharField(max_length=100)
+    news_MBC_link = models.CharField(max_length=100)
+    news_SBS_title = models.CharField(max_length=100)
+    news_SBS_link = models.CharField(max_length=100)
+    news_YTN_title = models.CharField(max_length=100)
+    news_YTN_link = models.CharField(max_length=100)
 
     def __str__(self):
         return self.title

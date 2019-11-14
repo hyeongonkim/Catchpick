@@ -9,11 +9,12 @@ import django
 django.setup()
 # HTTP GET Request
 from newsCatch.models import NewsTestData
+from newsCatch.models import VerifiedData
 
 # driver_path = os.path.join(os.path.dirname(__file__), 'chromedriver')
 driver_path = os.path.join('/Users/simonkim/PycharmProjects/KTISparse/catchpick/macchromedriver')
 options = webdriver.ChromeOptions()
-# options.add_argument('headless')
+options.add_argument('headless')
 options.add_argument('window-size=1920x1080')
 options.add_argument("disable-gpu")
 options.add_argument('no-sandbox')
@@ -133,14 +134,11 @@ def getNews(company, keyword):
     return [title1, link1, time1]
 
 
-companys = ['ca_1032', 'ca_1023', 'ca_1025', 'ca_1028', 'ca_1056', 'ca_1214', 'ca_1055', 'ca_1052']  # 경향, 조선, 중앙, 한겨레, KBS, MBC, SBS, YTN
+companys = ['ca_1032', 'ca_1023', 'ca_1025', 'ca_1028', 'ca_1056', 'ca_1214', 'ca_1055',
+            'ca_1052']  # 경향, 조선, 중앙, 한겨레, KBS, MBC, SBS, YTN
 
-#testData
-testDatas = ['흑사병']
-# for i in NewsTestData.objects.all():
-for i in testDatas:
-    title = i
-    # title = i.title
+for i in NewsTestData.objects.all():
+    title = i.title
     news = []
     newsCnt = 0
     companyCnt = 0
@@ -170,21 +168,46 @@ for i in testDatas:
         companyCnt = companyCnt + 1
     if newsCnt >= 4:
         category = []
-        for i in news:
-            if '경향' == i[3]:
-                category.append(KHcategory(i[1]))
-            elif '조선' == i[3]:
-                category.append(CScategory(i[1]))
-            elif '중앙' == i[3]:
-                category.append(CAcategory(i[1]))
-            elif '한겨레' == i[3]:
-                category.append(HKRcategory(i[1]))
-            elif 'SBS' == i[3]:
-                category.append(SBScategory(i[1]))
-            elif 'YTN' == i[3]:
-                category.append(YTNcategory(i[1]))
+        verify = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
+        for reset in verify:
+            reset = 'empty'
+        for k in news:
+            if '경향' == k[3]:
+                category.append(KHcategory(k[1]))
+                verify[0] = k[0]
+                verify[1] = k[1]
+            elif '조선' == k[3]:
+                category.append(CScategory(k[1]))
+                verify[4] = k[0]
+                verify[5] = k[1]
+            elif '중앙' == k[3]:
+                category.append(CAcategory(k[1]))
+                verify[6] = k[0]
+                verify[7] = k[1]
+            elif '한겨레' == k[3]:
+                category.append(HKRcategory(k[1]))
+                verify[2] = k[0]
+                verify[3] = k[1]
+            elif 'SBS' == k[3]:
+                category.append(SBScategory(k[1]))
+                verify[12] = k[0]
+                verify[13] = k[1]
+            elif 'YTN' == k[3]:
+                category.append(YTNcategory(k[1]))
+                verify[14] = k[0]
+                verify[15] = k[1]
+            elif 'MBC' == k[3]:
+                verify[10] = k[0]
+                verify[11] = k[1]
+            elif 'KBS' == k[3]:
+                verify[8] = k[0]
+                verify[9] = k[1]
         cnt = Counter(category)
         mostCategory = cnt.most_common(1)[0][0]
-        print(news) # 모델에 데이터 삽입
-        print(mostCategory)
+        VerifiedData(title=i.title, time=i.time, maxRank=i.maxRank, category=mostCategory, news_KH_title=verify[0],
+                     news_KH_link=verify[1], news_HKR_title=verify[2], news_HKR_link=verify[3], news_CS_title=verify[4],
+                     news_CS_link=verify[5], news_CA_title=verify[6], news_CA_link=verify[7], news_KBS_title=verify[8],
+                     news_KBS_link=verify[9], news_MBC_title=verify[10], news_MBC_link=verify[11],
+                     news_SBS_title=verify[12], news_SBS_link=verify[13], news_YTN_title=verify[14],
+                     news_YTN_link=verify[15]).save()
 driver.quit()
