@@ -9,29 +9,44 @@ django.setup()
 from newsCatch.models import TitleData, AccumulateData, NewsTestData
 
 
-def now_parse():
+def now_parse(): # 최신 검색어를 파싱합니다.
     TitleData.objects.all().delete()
     resp = requests.get('https://www.naver.com/')
     soup = BeautifulSoup(resp.text, 'html.parser')
     titles = soup.select('.ah_list .ah_k')
-    return titles;
+    return titles; # 최신 검색어 목록을 리스트 형태로 리턴합니다.
 
 
-def accumulate_data():
-    for i in range(1,21):
-        for j in range(1,21):
+def accumulate_data(now_list): # 데이터를 축적하는 함수입니다. 현재 파싱된 데이터 리스트를 인자로 받습니다.
+    for i in range(0,20):
 
-    
-    return 0;
+        try:
+            if(int(TitleData.objects.get(title=now_list[i].get_text()).nowRank) < int(AccumulateData.objects.get(title=now_list[i].get_text()).maxRank)): # 현재 파싱데이터의 랭킹과 누적된 데이터의 랭킹을 비교합니다.
+
+                Temp=AccumulateData.objects.get(title=now_list[i].get_text())                 # 현재 파싱데이터의 순위가 더 높으면 검색어 순위를 업데이트 합니다.
+                Temp.maxRank=TitleData.objects.get(title=now_list[i].get_text()).nowRank
+                Temp.save()
+
+        except AccumulateData.DoesNotExist: # 현재 파싱데이터가 누적된 데이터에 존재하지 않으면 새로운 누적데이터를 만듭니다.
+            Temp = AccumulateData(title=TitleData.objects.get(title=now_list[i].get_text()).title,time=TitleData.objects.get(title=now_list[i].get_text()).time,maxRank=TitleData.objects.get(title=now_list[i].get_text()).nowRank)
+            Temp.save()
+
+
+
+
+
+
+
+
 
 
 if __name__=='__main__':
-    titles = now_parse()
+    titles = now_parse() # 현재 검색어를 파싱합니다.
     cnt = 1
-    # for title in titles:
-    #     TitleData(title=title.get_text(),time= time.time(),nowRank=cnt).save()
-    #     cnt+=1
-    print(type(titles))
+    for title in titles: # 현재 파싱데이터의 타이틀,시간,순위를 저장합니다.
+        TitleData(title=title.get_text(),time= time.time(),nowRank=cnt).save()
+        cnt+=1
+    accumulate_data(titles) # 누적데이터와 현재데이터를 비교합니다.
 
 
 
