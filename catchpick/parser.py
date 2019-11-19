@@ -20,17 +20,24 @@ def now_parse(): # 최신 검색어를 파싱합니다.
 def accumulate_data(now_list): # 데이터를 축적하는 함수입니다. 현재 파싱된 데이터 리스트를 인자로 받습니다.
     for i in range(0,20):
         Now=TitleData.objects.get(title=now_list[i].get_text())
-        Accumulate = AccumulateData.objects.get(title=now_list[i].get_text())
         try:
+            Accumulate = AccumulateData.objects.get(title=now_list[i].get_text())
             if(int(Now.nowRank) < int(Accumulate.maxRank)): # 현재 파싱데이터의 랭킹과 누적된 데이터의 랭킹을 비교합니다.
 
                                # 현재 파싱데이터의 순위가 더 높으면 검색어 순위를 업데이트 합니다.
                 Accumulate.maxRank=Now.nowRank
                 Accumulate.save()
 
+
         except AccumulateData.DoesNotExist: # 현재 파싱데이터가 누적된 데이터에 존재하지 않으면 새로운 누적데이터를 만듭니다.
             New = AccumulateData(title=Now.title,time=Now.time,maxRank=Now.nowRank)
             New.save()
+        if ((Accumulate.toNewsTest == False) and ((float(Now.time)-float(Accumulate.time)) > 10800)):
+            Accumulate.toNewsTest = True
+            Accumulate.save()
+            NewsTest = NewsTestData(title=Accumulate.title, time=Accumulate.time, maxRank=Accumulate.maxRank)
+            NewsTest.save()
+
 
 
 
