@@ -27,15 +27,20 @@ def accumulate_data(now_list): # 데이터를 축적하는 함수입니다. 현�
                                # 현재 파싱데이터의 순위가 더 높으면 검색어 순위를 업데이트 합니다.
                 Accumulate.maxRank=Now.nowRank
                 Accumulate.save()
+                if Accumulate.toNewsTest == True: #이미 NewsTestData로 넘겨준 데이터의 순위가 바뀐 경우 NewsTestData의 순위를 업데이트 합니다.
+                    update_Rank = NewsTestData.objects.get(title=now_list[i].get_text())
+                    update_Rank.maxRank = Accumulate.maxRank
+                    update_Rank.save()
 
 
         except AccumulateData.DoesNotExist: # 현재 파싱데이터가 누적된 데이터에 존재하지 않으면 새로운 누적데이터를 만듭니다.
             New = AccumulateData(title=Now.title,time=Now.time,maxRank=Now.nowRank)
             New.save()
-        if ((Accumulate.toNewsTest == False) and ((float(Now.time)-float(Accumulate.time)) > 10800)):
-            Accumulate.toNewsTest = True
-            Accumulate.save()
-            NewsTest = NewsTestData(title=Accumulate.title, time=Accumulate.time, maxRank=Accumulate.maxRank)
+        if ((AccumulateData.objects.get(title=now_list[i].get_text()).toNewsTest == False) and ((float(Now.time)-float(AccumulateData.objects.get(title=now_list[i].get_text()).time)) > 10800)):
+            pass_Accumulate = AccumulateData.objects.get(title=now_list[i].get_text())
+            pass_Accumulate.toNewsTest = True
+            pass_Accumulate.save()
+            NewsTest = NewsTestData(title=pass_Accumulate.title, time=pass_Accumulate.time, maxRank=pass_Accumulate.maxRank)
             NewsTest.save()
 
 
