@@ -44,6 +44,15 @@ def accumulate_data(now_list): # 데이터를 축적하는 함수입니다. 현�
             NewsTest.save()
 
 
+def del_accumulate_data(now_list):
+    for i in AccumulateData.objects.all().values_list('title'): #누적데이터의 타이틀 정보를 리스트로 불러옵니다.
+        try:
+            Now = TitleData.objects.get(title=i[0])
+        except TitleData.DoesNotExist: # 누적데이터에 현재 파싱된데이터와 일치하지 않는 데이터를 삭제합니다.
+            del_data = AccumulateData.objects.get(title=i[0])
+            del_data.delete()
+
+
 
 
 
@@ -59,6 +68,7 @@ if __name__=='__main__':
     for title in titles: # 현재 파싱데이터의 타이틀,시간,순위를 저장합니다.
         TitleData(title=title.get_text(),time= time.time(),nowRank=cnt).save()
         cnt+=1
+    del_accumulate_data(titles) # 누적데이터에 현재 파싱된데이터와 일치하지 않는 데이터를 삭제합니다.
     accumulate_data(titles) # 누적데이터와 현재데이터를 비교합니다.
 
 
