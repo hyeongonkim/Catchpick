@@ -28,9 +28,8 @@ def accumulate_data(now_list): # 데이터를 축적하는 함수입니다. 현�
                                # 현재 파싱데이터의 순위가 더 높으면 검색어 순위를 업데이트 합니다.
                 Accumulate.maxRank=Now.nowRank
                 Accumulate.save()
-                if Accumulate.toNewsTest == True: #이미 NewsTestData로 넘겨준 데이터의 순위가 바뀐 경우 NewsTestData의 순위를 업데이트 합니다.
-                    update_Rank = NewsTestData.objects.get(title=now_list[i].get_text())
-                    update_Rank.maxRank = Accumulate.maxRank
+                if Accumulate.toNewsTest == True: #이미 NewsTestData로 넘겨준 데이터의 순위가 바뀐 경우 NewsTestData에 다시 저장합니다.
+                    update_Rank = NewsTestData(title=Accumulate.title, time=Accumulate.time, maxRank=Accumulate.maxRank)
                     update_Rank.save()
 
 
