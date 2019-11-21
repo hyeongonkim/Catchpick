@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Subscription</title>
+</head>
+<body>
+    <h1>구독</h1>
+    <form method="POST" class="post-form">
+        {%csrf_token%}
+        <table>
+            {{form.as_table}}
+        </table>
+        <button type="submit">제출</button>
+    </form>
+</body>
+</html>

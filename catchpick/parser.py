@@ -9,6 +9,7 @@ django.setup()
 from newsCatch.models import TitleData, AccumulateData, NewsTestData
 
 
+
 def now_parse(): # 최신 검색어를 파싱합니다.
     TitleData.objects.all().delete()
     resp = requests.get('https://www.naver.com/')

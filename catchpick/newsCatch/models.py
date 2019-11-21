@@ -48,7 +48,7 @@ class VerifiedData(models.Model):
         return self.title
 
 class EmailData(models.Model):
-    email = models.CharField(max_length=100)
+    email = models.EmailField(max_length=30)
 
     def __str__(self):
         return self.email

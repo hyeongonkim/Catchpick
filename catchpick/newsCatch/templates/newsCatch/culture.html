@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>문화</title>
+</head>
+<body>
+    <h1>앙 문화띠!</h1>
+    <a href="{% url 'newsCatch:about' %}">서비스 소개</a>
+    <a href="{% url 'newsCatch:subscription' %}">구독하기</a>
+    <a href="{% url 'newsCatch:unsubscription' %}">구독취소</a>
+
+    <li>
+        <a href="{% url 'newsCatch:politics' %}">정치</a>
+        <a href="{% url 'newsCatch:economy' %}">경제</a>
+        <a href="{% url 'newsCatch:society' %}">사회</a>
+        <a href="{% url 'newsCatch:international' %}">국제</a>
+        <a href="{% url 'newsCatch:sports' %}">스포츠</a>
+        <a href="{% url 'newsCatch:culture' %}">문화</a>
+        <a href="{% url 'newsCatch:etc' %}">기타</a>
+    </li>
+</body>
+</html>
