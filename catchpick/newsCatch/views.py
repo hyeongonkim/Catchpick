@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from .forms import EmailForm
-from .models import EmailData
+from .models import EmailData, VerifiedData
 from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
 
 def politics(request):
-    return render(request,'newsCatch/politics.html')
+    news_data = VerifiedData.objects.filter(category="정치")
+    return render(request, 'newsCatch/politics.html', {'news_data': news_data})
 def culture(request):
     return render(request,'newsCatch/culture.html')
 def society(request):
@@ -35,7 +36,6 @@ def subscription(request): # 구독 페이지 처리
                 return render(request, 'newsCatch/sub_emailError.html')
         else: #이메일 형석 예외처리
             return render(request, 'newsCatch/sub_emailError.html')
-
     else:
         form = EmailForm()
         return render(request, 'newsCatch/subscription.html', {'form': form})
@@ -53,8 +53,6 @@ def unsubscription(request): #구독취소 페이지 처리
                 return render(request, 'newsCatch/unsub_emailError.html')
         except ObjectDoesNotExist: #삭제하려는 이메일이 EmailData DB에 없다면 에러페이지 출력
             return render(request, 'newsCatch/emailDoseNotExist.html')
-
-
     else:
         form = EmailForm()
         return render(request, 'newsCatch/unsubscription.html', {'form': form})
