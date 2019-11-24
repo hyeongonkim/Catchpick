@@ -103,6 +103,9 @@ def getNews(company, keyword):
     driver.find_element_by_id("news_popup").click()
     driver.find_element_by_id(company).click()
     driver.find_element_by_xpath("//*[@id='_nx_option_media']/div[2]/div[3]/button[1]").click()
+    driver.find_element_by_xpath("// *[ @ id = 'snb'] / div / ul / li[2] / a").click()
+    driver.find_element_by_xpath("//*[@id='_nx_option_date']/div[1]/ul[1]/li[2]/a").click()
+
 
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
@@ -110,6 +113,10 @@ def getNews(company, keyword):
     newsTime = soup.select('#sp_nws1 > dl > dd.txt_inline')
     newsTitle2 = soup.select('#sp_nws2 > dl > dt > a')
     newsTime2 = soup.select('#sp_nws2 > dl > dd.txt_inline')
+
+    if len(newsTitle) == 0:
+        return ['empty', 'empty', 'empty']
+
     for i in newsTitle:
         title1 = i.get('title')
         link1 = i.get('href')
@@ -120,6 +127,9 @@ def getNews(company, keyword):
         link2 = j.get('href')
     for m in newsTime2:
         time2 = str(m).split('<span class="bar"></span>')[-3][1:-1]
+
+    if len(newsTitle2) == 0:
+        return [title1, link1, time1]
 
     if keyword in title2 and keyword not in title1:
         return [title2, link2, time2]
@@ -138,7 +148,7 @@ companys = ['ca_1032', 'ca_1023', 'ca_1025', 'ca_1028', 'ca_1056', 'ca_1214', 'c
             'ca_1052']  # 경향, 조선, 중앙, 한겨레, KBS, MBC, SBS, YTN
 
 nowTime = time.time()
-# 기존데이터 리프레시
+#기존데이터 리프레시
 for i in VerifiedData.objects.all():
     title = i.title
     if nowTime - float(i.time) >= 86400:
@@ -149,7 +159,15 @@ for i in VerifiedData.objects.all():
     companyCnt = 0
     for j in companys:
         nowData = getNews(j, title)
-        if title not in nowData[0] or ('분 전' not in nowData[2] and '시간 전' not in nowData[2]):
+        if '분 전' not in nowData[2] and '시간 전' not in nowData[2]:
+            companyCnt = companyCnt + 1
+            continue
+        testList = title.split()
+        chkTitleTest = False
+        for tempkey in testList:
+            if tempkey in nowData[0]:
+                chkTitleTest = True
+        if not chkTitleTest:
             companyCnt = companyCnt + 1
             continue
         if companyCnt == 0:
@@ -226,7 +244,15 @@ for i in NewsTestData.objects.all():
         companyCnt = 0
         for j in companys:
             nowData = getNews(j, title)
-            if title not in nowData[0] or ('분 전' not in nowData[2] and '시간 전' not in nowData[2]):
+            if '분 전' not in nowData[2] and '시간 전' not in nowData[2]:
+                companyCnt = companyCnt + 1
+                continue
+            testList = title.split()
+            chkTitleTest = False
+            for tempkey in testList:
+                if tempkey in nowData[0]:
+                    chkTitleTest = True
+            if not chkTitleTest:
                 companyCnt = companyCnt + 1
                 continue
             if companyCnt == 0:
@@ -248,7 +274,7 @@ for i in NewsTestData.objects.all():
             news.append(nowData)
             newsCnt = newsCnt + 1
             companyCnt = companyCnt + 1
-        if newsCnt >= 4:
+        if newsCnt >= 3:
             category = []
             verify = []
             for cnt in range(16):
