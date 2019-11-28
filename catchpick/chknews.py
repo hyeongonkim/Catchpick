@@ -151,7 +151,7 @@ nowTime = time.time()
 #기존데이터 리프레시
 for i in VerifiedData.objects.all():
     title = i.title
-    if nowTime - float(i.time) >= 86400:
+    if nowTime - float(i.time) >= 604800:
         i.delete()
         continue
     news = []
@@ -239,6 +239,17 @@ for i in NewsTestData.objects.all():
         rankChange.maxRank = i.maxRank
         rankChange.save()
     except VerifiedData.DoesNotExist:
+        testAlready = title.split()
+        chkTestAlready = False
+        for splited in testAlready:
+            try:
+                test = VerifiedData.objects.get(title=splited)
+                chkTestAlready = True
+                break
+            except VerifiedData.DoesNotExist:
+                continue
+        if chkTestAlready:
+            continue
         news = []
         newsCnt = 0
         companyCnt = 0
