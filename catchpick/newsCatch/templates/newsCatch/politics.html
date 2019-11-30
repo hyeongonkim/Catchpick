@@ -146,8 +146,36 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="font-weight-bold text-primary text-uppercase mb-1">이슈모아보기</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">여기에 데이터</div>
+                                        <div class="font-weight-bold text-primary text-uppercase mb-1">이슈모아보기(최근순)</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            {% if all_news_data %}
+                                                {% for all_news in all_news_data %}
+                                                    {% if all_news.category == "정치" %}
+                                                        <a href="{% url 'newsCatch:politics' %}">{{ all_news.title }}</a>
+                                                    {% endif %}
+                                                    {% if all_news.category == "사회" %}
+                                                        <a href="{% url 'newsCatch:society' %}">{{ all_news.title }}</a>
+                                                    {% endif %}
+                                                    {% if all_news.category == "경제" %}
+                                                        <a href="{% url 'newsCatch:economy' %}">{{ all_news.title }}</a>
+                                                    {% endif %}
+                                                    {% if all_news.category == "국제" %}
+                                                        <a href="{% url 'newsCatch:international' %}">{{ all_news.title }}</a>
+                                                    {% endif %}
+                                                    {% if all_news.category == "스포츠" %}
+                                                        <a href="{% url 'newsCatch:sports' %}">{{ all_news.title }}</a>
+                                                    {% endif %}
+                                                    {% if all_news.category == "문화" %}
+                                                        <a href="{% url 'newsCatch:culture' %}">{{ all_news.title }}</a>
+                                                    {% endif %}
+                                                    {% if all_news.category == "기타" %}
+                                                        <a href="{% url 'newsCatch:etc' %}">{{ all_news.title }}</a>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                키워드가 없습니다.
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -185,32 +213,32 @@
                                 <!-- Basic Card Example -->
                                 <div class="card shadow mb-4">
                                     <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">{{ news.title }} // 최대순위 : {{ news.maxRank }}</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">{{ news.title }} / 최대순위: {{ news.maxRank }} / {{ news.time }}</h6>
                                     </div>
                                     <div class="card-body">
                                         {% if news.news_KH_title != "empty" %}
-                                            <a href="{{ news.news_KH_link }}" target="_blank" class="newsLinkText">{{ news.news_KH_title }}</a><br>
+                                            <img src="{% static 'img/KH.png'%}"> <a href="{{ news.news_KH_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_KH_title }}</a><br><br>
                                         {% endif %}
                                         {% if news.news_HKR_title != "empty" %}
-                                            <a href="{{ news.news_HKR_link }}" target="_blank" class="newsLinkText">{{ news.news_HKR_title }}</a><br>
+                                            <img src="{% static 'img/HKR.png'%}"> <a href="{{ news.news_HKR_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_HKR_title }}</a><br><br>
                                         {% endif %}
                                         {% if news.news_CS_title != "empty" %}
-                                            <a href="{{ news.news_CS_link }}" target="_blank" class="newsLinkText">{{ news.news_CS_title }}</a><br>
+                                            <img src="{% static 'img/CS.png'%}"> <a href="{{ news.news_CS_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_CS_title }}</a><br><br>
                                         {% endif %}
                                         {% if news.news_CA_title != "empty" %}
-                                            <a href="{{ news.news_CA_link }}" target="_blank" class="newsLinkText">{{ news.news_CA_title }}</a><br>
+                                            <img src="{% static 'img/CA.png'%}"> <a href="{{ news.news_CA_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_CA_title }}</a><br><br>
                                         {% endif %}
                                         {% if news.news_KBS_title != "empty" %}
-                                            <a href="{{ news.news_KBS_link }}" target="_blank" class="newsLinkText">{{ news.news_KBS_title }}</a><br>
+                                            <img src="{% static 'img/KBS.png'%}"> <a href="{{ news.news_KBS_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_KBS_title }}</a><br><br>
                                         {% endif %}
                                         {% if news.news_MBC_title != "empty" %}
-                                            <a href="{{ news.news_MBC_link }}" target="_blank" class="newsLinkText">{{ news.news_MBC_title }}</a><br>
+                                            <img src="{% static 'img/MBC.png'%}"> <a href="{{ news.news_MBC_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_MBC_title }}</a><br><br>
                                         {% endif %}
                                         {% if news.news_SBS_title != "empty" %}
-                                            <a href="{{ news.news_SBS_link }}" target="_blank" class="newsLinkText">{{ news.news_SBS_title }}</a><br>
+                                            <img src="{% static 'img/SBS.png'%}"> <a href="{{ news.news_SBS_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_SBS_title }}</a><br><br>
                                         {% endif %}
                                         {% if news.news_YTN_title != "empty" %}
-                                            <a href="{{ news.news_YTN_link }}" target="_blank" class="newsLinkText">{{ news.news_YTN_title }}</a><br>
+                                            <img src="{% static 'img/YTN.png'%}"> <a href="{{ news.news_YTN_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_YTN_title }}</a><br>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -219,7 +247,7 @@
                         {% endfor %}
                     {% else %}
                         <p>&nbsp;</p>
-                        <p><strong>24시간 동안 올라온 뉴스가 없습니다.</strong></p>
+                        <p><strong>일주일 동안 올라온 뉴스가 없습니다.</strong></p>
                     {% endif %}
 
                 </div>

@@ -1,23 +1,295 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>국제</title>
-</head>
-<body>
-    <h1>앙 국제띠!</h1>
-    <a href="{% url 'newsCatch:about' %}">서비스 소개</a>
-    <a href="{% url 'newsCatch:subscription' %}">구독하기</a>
-    <a href="{% url 'newsCatch:unsubscription' %}">구독취소</a>
 
-    <li>
-        <a href="{% url 'newsCatch:politics' %}">정치</a>
-        <a href="{% url 'newsCatch:economy' %}">경제</a>
-        <a href="{% url 'newsCatch:society' %}">사회</a>
-        <a href="{% url 'newsCatch:international' %}">국제</a>
-        <a href="{% url 'newsCatch:sports' %}">스포츠</a>
-        <a href="{% url 'newsCatch:culture' %}">문화</a>
-        <a href="{% url 'newsCatch:etc' %}">기타</a>
-    </li>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>CatchPick-국제</title>
+
+    <link rel="icon" type="image/png" href="{% static 'fav.ico'%}"/>
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css'%}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin-2.css'%}" rel="stylesheet">
+    <link href="{% static 'css/overlap.css'%}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav sidebarBackground sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center">
+            <div class="sidebar-brand-icon">
+                <img src="{% static 'img/logoonly.png'%}" width="35">
+            </div>
+            <div class="sidebar-brand-text mx-3 logoText">CatchPick</div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading sidebarTextSize">
+            카테고리
+        </div>
+
+        <!-- Nav Item -->
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'newsCatch:politics' %}">
+                <span class="sidebarTextSize">정치</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'newsCatch:economy' %}">
+                <span class="sidebarTextSize">경제</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'newsCatch:society' %}">
+                <span class="sidebarTextSize">사회</span></a>
+        </li>
+
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'newsCatch:international' %}">
+                <span class="sidebarTextSize">국제</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'newsCatch:sports' %}">
+                <span class="sidebarTextSize">스포츠</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'newsCatch:culture' %}">
+                <span class="sidebarTextSize">문화</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'newsCatch:etc' %}">
+                <span class="sidebarTextSize">기타</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                <!-- Sidebar Toggle (Topbar) -->
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="{% url 'newsCatch:about' %}">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small topbarText">서비스소개</span>
+                            <img class="img-profile rounded-circle" src="{% static 'img/help.png'%}" width="60">
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="{% url 'newsCatch:subscription' %}">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small topbarText">구독하기</span>
+                            <img class="img-profile rounded-circle" src="{% static 'img/sub.png'%}" width="60">
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="{% url 'newsCatch:unsubscription' %}">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small topbarText">구독취소</span>
+                            <img class="img-profile rounded-circle" src="{% static 'img/unsub.png'%}" width="60">
+                        </a>
+                    </li>
+
+                </ul>
+
+            </nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <div class="row">
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-10 col-md-12 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="font-weight-bold text-primary text-uppercase mb-1">이슈모아보기(최근순)</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            {% if all_news_data %}
+                                                {% for all_news in all_news_data %}
+                                                    {% if all_news.category == "정치" %}
+                                                        <a href="{% url 'newsCatch:politics' %}">{{ all_news.title }}</a>
+                                                    {% endif %}
+                                                    {% if all_news.category == "사회" %}
+                                                        <a href="{% url 'newsCatch:society' %}">{{ all_news.title }}</a>
+                                                    {% endif %}
+                                                    {% if all_news.category == "경제" %}
+                                                        <a href="{% url 'newsCatch:economy' %}">{{ all_news.title }}</a>
+                                                    {% endif %}
+                                                    {% if all_news.category == "국제" %}
+                                                        <a href="{% url 'newsCatch:international' %}">{{ all_news.title }}</a>
+                                                    {% endif %}
+                                                    {% if all_news.category == "스포츠" %}
+                                                        <a href="{% url 'newsCatch:sports' %}">{{ all_news.title }}</a>
+                                                    {% endif %}
+                                                    {% if all_news.category == "문화" %}
+                                                        <a href="{% url 'newsCatch:culture' %}">{{ all_news.title }}</a>
+                                                    {% endif %}
+                                                    {% if all_news.category == "기타" %}
+                                                        <a href="{% url 'newsCatch:etc' %}">{{ all_news.title }}</a>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                키워드가 없습니다.
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Pending Requests Card Example -->
+                    <div class="col-xl-2 col-md-12 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="font-weight-bold text-warning text-uppercase mb-1">현재시간</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <a id="time" class="d-flex align-items-center"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800 textBold">국제</h1>
+                </div>
+
+                <div class="row">
+                    {% if news_data %}
+                        {% for news in news_data %}
+                            <div class="col-lg-6">
+
+                                <!-- Basic Card Example -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">{{ news.title }} / 최대순위: {{ news.maxRank }} / {{ news.time }}</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        {% if news.news_KH_title != "empty" %}
+                                            <img src="{% static 'img/KH.png'%}"> <a href="{{ news.news_KH_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_KH_title }}</a><br><br>
+                                        {% endif %}
+                                        {% if news.news_HKR_title != "empty" %}
+                                            <img src="{% static 'img/HKR.png'%}"> <a href="{{ news.news_HKR_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_HKR_title }}</a><br><br>
+                                        {% endif %}
+                                        {% if news.news_CS_title != "empty" %}
+                                            <img src="{% static 'img/CS.png'%}"> <a href="{{ news.news_CS_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_CS_title }}</a><br><br>
+                                        {% endif %}
+                                        {% if news.news_CA_title != "empty" %}
+                                            <img src="{% static 'img/CA.png'%}"> <a href="{{ news.news_CA_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_CA_title }}</a><br><br>
+                                        {% endif %}
+                                        {% if news.news_KBS_title != "empty" %}
+                                            <img src="{% static 'img/KBS.png'%}"> <a href="{{ news.news_KBS_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_KBS_title }}</a><br><br>
+                                        {% endif %}
+                                        {% if news.news_MBC_title != "empty" %}
+                                            <img src="{% static 'img/MBC.png'%}"> <a href="{{ news.news_MBC_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_MBC_title }}</a><br><br>
+                                        {% endif %}
+                                        {% if news.news_SBS_title != "empty" %}
+                                            <img src="{% static 'img/SBS.png'%}"> <a href="{{ news.news_SBS_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_SBS_title }}</a><br><br>
+                                        {% endif %}
+                                        {% if news.news_YTN_title != "empty" %}
+                                            <img src="{% static 'img/YTN.png'%}"> <a href="{{ news.news_YTN_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_YTN_title }}</a><br>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>&nbsp;</p>
+                        <p><strong>일주일 동안 올라온 뉴스가 없습니다.</strong></p>
+                    {% endif %}
+
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; CatchPick 2019</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Bootstrap core JavaScript-->
+<script src="{% static 'vendor/jquery/jquery.min.js'%}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="{% static 'vendor/jquery-easing/jquery.easing.min.js'%}"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="{% static 'js/sb-admin-2.min.js'%}"></script>
+<script src="{% static 'js/time.js'%}"></script>
+
 </body>
+
 </html>
