@@ -78,13 +78,13 @@ def subscription(request): # 구독 페이지 처리
         form = EmailForm(request.POST)
 
         if form.is_valid(): #폼이 유효하면 이메일 저장
-            if EmailData.objects.filter(email=request.POST.get('email')).count() ==0: #EmailData DB에 입력된 이메일이 없다면 이메일 저장
+            if EmailData.objects.filter(email=request.POST.get('email')).count() == 0: #EmailData DB에 입력된 이메일이 없다면 이메일 저장
                 subscription = form.save()
                 return redirect('newsCatch:politics')
             else:  #EmailData DB에 이미 있는 이메일이면 에러페이지로 이동
-                return render(request, 'newsCatch/sub_emailError.html')
+                return redirect('newsCatch:errorsubs')
         else: #이메일 형석 예외처리
-            return render(request, 'newsCatch/sub_emailError.html')
+            return redirect('newsCatch:errorsubs')
     else:
         form = EmailForm()
         return render(request, 'newsCatch/subscription.html', {'form': form})
@@ -99,10 +99,15 @@ def unsubscription(request): #구독취소 페이지 처리
                 unsubscription.delete()
                 return redirect('newsCatch:politics')
             else: #이메일 형식 예외처리
-                return render(request, 'newsCatch/unsub_emailError.html')
+                return redirect('newsCatch:errorunsubs')
         except ObjectDoesNotExist: #삭제하려는 이메일이 EmailData DB에 없다면 에러페이지 출력
-            return render(request, 'newsCatch/emailDoseNotExist.html')
+            return redirect('newsCatch:errorunsubs')
     else:
         form = EmailForm()
         return render(request, 'newsCatch/unsubscription.html', {'form': form})
 
+def errorsubs(request):
+    return render(request, 'newsCatch/sub_emailError.html')
+
+def errorunsubs(request):
+    return render(request, 'newsCatch/unsub_emailError.html')

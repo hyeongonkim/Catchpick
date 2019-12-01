@@ -1,17 +1,81 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
+
+    <title>뉴스레터 구독취소</title>
     <meta charset="UTF-8">
-    <title>UnSubscription</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/png" href="{% static 'fav.ico'%}"/>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css'%}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/fontawesome-free/css/fontawesome.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/iconic/css/material-design-iconic-font.min.css'%}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css'%}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/util.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
+
+    <link href="{% static 'css/overlap.css'%}" rel='stylesheet'/>
+
 </head>
 <body>
-    <h1>구독취소</h1>
-    <form method="POST" class="post-form">
-        {%csrf_token%}
-        <table>
-            {{form.as_table}}
-        </table>
-        <button type="submit">제출</button>
-    </form>
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100 p-t-30 p-b-20">
+			<span class="login100-form-title p-b-50">
+				Unsubscribe
+			</span>
+            <span class="login100-form-avatar">
+				<img src="{% static 'img/kmulogo.jpg'%}" alt="AVATAR">
+			</span>
+
+            <form method="POST" class="post-form">
+                {%csrf_token%}
+
+                <div class="wrap-input100 validate-input m-t-50 m-b-35" data-validate="Enter Email">
+                    {{ form.email }}
+                    <span class="focus-input100" data-placeholder="Email"></span>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <button type="submit" class="login100-form-btn unsubs unshadow">
+                        구독취소
+                    </button>
+                </div>
+
+            </form>
+
+            <ul class="login-more p-t-50">
+                <li>
+					<span class="txt1">
+						뉴스레터 발송을 원치 않으시면 이메일을 입력하세요.
+					</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div id="dropDownSelect1"></div>
+
+<script src="{% static 'vendor/jquery/jquery.js'%}"></script>
+<script src="{% static 'vendor/animsition/js/animsition.min.js'%}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js'%}"></script>
+<script src="{% static 'vendor/select2/select2.min.js'%}"></script>
+<script src="{% static 'vendor/daterangepicker/moment.min.js'%}"></script>
+<script src="{% static 'vendor/daterangepicker/daterangepicker.js'%}"></script>
+<script src="{% static 'vendor/countdowntime/countdowntime.js'%}"></script>
+<script src="{% static 'js/main.js'%}"></script>
+
 </body>
 </html>

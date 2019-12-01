@@ -29,3 +29,17 @@
 .newsLinkText {
     color: darkslategrey !important;
 }
+
+.unsubs {
+    background-color: #d1522c !important;
+}
+
+.unshadow {
+    box-shadow: 0 0px 0px 0px rgba(209, 82, 744, 0.5) !important;
+    -webkit-box-shadow: 0 0px 0px 0px rgba(209, 82, 744, 0.5) !important;
+}
+
+.about_back {
+    background-color: #FFFFFF !important;
+    background-image: none !important;
+}
