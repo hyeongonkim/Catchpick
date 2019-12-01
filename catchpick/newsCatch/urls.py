@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 app_name='newsCatch'
 urlpatterns = [
+    path('', views.index , name='index'),
     path('politics/', views.politics , name='politics'),
     path('culture/', views.culture , name='culture'),
     path('society/', views.society , name='society'),

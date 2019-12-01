@@ -5,6 +5,8 @@ from django.core.exceptions import ObjectDoesNotExist
 import time
 # Create your views here.
 
+def index(request):
+    return redirect('newsCatch:politics')
 
 def politics(request):
     all_news_data = list(reversed(VerifiedData.objects.all().order_by('time')))
