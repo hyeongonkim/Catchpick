@@ -11,8 +11,8 @@ django.setup()
 from newsCatch.models import NewsTestData
 from newsCatch.models import VerifiedData
 
-# driver_path = os.path.join(os.path.dirname(__file__), 'chromedriver')
-driver_path = os.path.join('/Users/simonkim/PycharmProjects/KTISparse/catchpick/macchromedriver')
+driver_path = os.path.join(os.path.dirname(__file__), 'chromedriver')
+# driver_path = os.path.join('/Users/simonkim/PycharmProjects/KTISparse/catchpick/macchromedriver')
 options = webdriver.ChromeOptions()
 options.add_argument('headless')
 options.add_argument('window-size=1920x1080')
