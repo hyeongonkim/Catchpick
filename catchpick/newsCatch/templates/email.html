@@ -1,0 +1,27 @@
+{% for news in newsdata %}
+    <h2>{{ news.title }} / 최대순위: {{ news.maxRank }} / {{ news.time }}</h2><br><br>
+    {% if news.news_KH_title != "empty" %}
+        경향 : <a href="{{ news.news_KH_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_KH_title }}</a><br><br>
+    {% endif %}
+    {% if news.news_HKR_title != "empty" %}
+        한겨레 : <a href="{{ news.news_HKR_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_HKR_title }}</a><br><br>
+    {% endif %}
+    {% if news.news_CS_title != "empty" %}
+        조선 : <a href="{{ news.news_CS_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_CS_title }}</a><br><br>
+    {% endif %}
+    {% if news.news_CA_title != "empty" %}
+        중앙 : <a href="{{ news.news_CA_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_CA_title }}</a><br><br>
+    {% endif %}
+    {% if news.news_KBS_title != "empty" %}
+        KBS : <a href="{{ news.news_KBS_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_KBS_title }}</a><br><br>
+    {% endif %}
+    {% if news.news_MBC_title != "empty" %}
+        MBC : <a href="{{ news.news_MBC_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_MBC_title }}</a><br><br>
+    {% endif %}
+    {% if news.news_SBS_title != "empty" %}
+        SBS : <a href="{{ news.news_SBS_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_SBS_title }}</a><br><br>
+    {% endif %}
+    {% if news.news_YTN_title != "empty" %}
+        YTN : <a href="{{ news.news_YTN_link }}" target="_blank" class="newsLinkText" style="text-align: left">{{ news.news_YTN_title }}</a><br><br><br><br>
+    {% endif %}
+{% endfor %}

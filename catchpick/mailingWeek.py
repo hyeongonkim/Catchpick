@@ -10,7 +10,7 @@ from django.utils.html import strip_tags
 
 
 def daily_send():
-     todayNews = list(reversed(VerifiedData.objects.filter(time__gt=time.time() - 86400).order_by('time')))
+     todayNews = list(reversed(VerifiedData.objects.all().order_by('time')))
 
      if len(todayNews) != 0:
           for j in todayNews:
