@@ -23,7 +23,8 @@ def daily_send():
 
           html_content = render_to_string('email.html', {'newsdata': todayNews})
           text_content = strip_tags(html_content)
-          msg = EmailMultiAlternatives(time.strftime('%Y년 %m월 %d일 오늘의 뉴스', time.localtime(time.time())), text_content, to=to)
+          msg = EmailMultiAlternatives(time.strftime('%Y년 %m월 %d일 ~ ', time.localtime(time.time()-604800))+time.strftime('%Y년 %m월 %d일 주간 뉴스', time.localtime(time.time()))
+, text_content, to=to)
           msg.attach_alternative(html_content, "text/html")
           msg.send()
 
