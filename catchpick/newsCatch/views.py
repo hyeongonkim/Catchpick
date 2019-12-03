@@ -14,7 +14,7 @@ def politics(request):
         for j in all_news_data:
             j.title = j.title + ', '
         all_news_data[len(all_news_data) - 1].title = all_news_data[len(all_news_data) - 1].title[:-2]
-    news_data = VerifiedData.objects.filter(category="정치").order_by('time')
+    news_data = list(reversed(VerifiedData.objects.filter(category="정치").order_by('time')))
     for i in news_data:
         i.time = time.strftime('%m월 %d일 %H:%M ~', time.localtime(float(i.time)))
     return render(request, 'newsCatch/politics.html', {'all_news_data': all_news_data, 'news_data': news_data})
@@ -24,7 +24,7 @@ def culture(request):
         for j in all_news_data:
             j.title = j.title + ', '
         all_news_data[len(all_news_data) - 1].title = all_news_data[len(all_news_data) - 1].title[:-2]
-    news_data = VerifiedData.objects.filter(category="문화").order_by('time')
+    news_data = list(reversed(VerifiedData.objects.filter(category="문화").order_by('time')))
     for i in news_data:
         i.time = time.strftime('%m월 %d일 %H:%M ~', time.localtime(float(i.time)))
     return render(request, 'newsCatch/culture.html', {'all_news_data': all_news_data, 'news_data': news_data})
@@ -34,7 +34,7 @@ def society(request):
         for j in all_news_data:
             j.title = j.title + ', '
         all_news_data[len(all_news_data) - 1].title = all_news_data[len(all_news_data) - 1].title[:-2]
-    news_data = VerifiedData.objects.filter(category="사회").order_by('time')
+    news_data = list(reversed(VerifiedData.objects.filter(category="사회").order_by('time')))
     for i in news_data:
         i.time = time.strftime('%m월 %d일 %H:%M ~', time.localtime(float(i.time)))
     return render(request, 'newsCatch/society.html', {'all_news_data': all_news_data, 'news_data': news_data})
@@ -44,7 +44,7 @@ def economy(request):
         for j in all_news_data:
             j.title = j.title + ', '
         all_news_data[len(all_news_data) - 1].title = all_news_data[len(all_news_data) - 1].title[:-2]
-    news_data = VerifiedData.objects.filter(category="경제").order_by('time')
+    news_data = list(reversed(VerifiedData.objects.filter(category="경제").order_by('time')))
     for i in news_data:
         i.time = time.strftime('%m월 %d일 %H:%M ~', time.localtime(float(i.time)))
     return render(request, 'newsCatch/economy.html', {'all_news_data': all_news_data, 'news_data': news_data})
@@ -54,7 +54,7 @@ def international(request):
         for j in all_news_data:
             j.title = j.title + ', '
         all_news_data[len(all_news_data) - 1].title = all_news_data[len(all_news_data) - 1].title[:-2]
-    news_data = VerifiedData.objects.filter(category="국제").order_by('time')
+    news_data = list(reversed(VerifiedData.objects.filter(category="국제").order_by('time')))
     for i in news_data:
         i.time = time.strftime('%m월 %d일 %H:%M ~', time.localtime(float(i.time)))
     return render(request, 'newsCatch/international.html', {'all_news_data': all_news_data, 'news_data': news_data})
@@ -64,7 +64,7 @@ def sports(request):
         for j in all_news_data:
             j.title = j.title + ', '
         all_news_data[len(all_news_data) - 1].title = all_news_data[len(all_news_data) - 1].title[:-2]
-    news_data = VerifiedData.objects.filter(category="스포츠").order_by('time')
+    news_data = list(reversed(VerifiedData.objects.filter(category="스포츠").order_by('time')))
     for i in news_data:
         i.time = time.strftime('%m월 %d일 %H:%M ~', time.localtime(float(i.time)))
     return render(request, 'newsCatch/sports.html', {'all_news_data': all_news_data, 'news_data': news_data})
@@ -74,7 +74,7 @@ def etc(request):
         for j in all_news_data:
             j.title = j.title + ', '
         all_news_data[len(all_news_data) - 1].title = all_news_data[len(all_news_data) - 1].title[:-2]
-    news_data = VerifiedData.objects.filter(category="기타").order_by('time')
+    news_data = list(reversed(VerifiedData.objects.filter(category="기타").order_by('time')))
     for i in news_data:
         i.time = time.strftime('%m월 %d일 %H:%M ~', time.localtime(float(i.time)))
     return render(request, 'newsCatch/etc.html', {'all_news_data': all_news_data, 'news_data': news_data})

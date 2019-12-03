@@ -47,3 +47,31 @@
 .about {
     padding: 1rem !important;
 }
+
+.politics_color {
+    color: #33b5a1 !important;
+}
+
+.society_color {
+    color: #752eb0 !important;
+}
+
+.economy_color {
+    color: #2f7bad !important;
+}
+
+.culture_color {
+    color: #b32768 !important;
+}
+
+.sports_color {
+    color: #b34529 !important;
+}
+
+.international_color {
+    color: #a3851a !important;
+}
+
+.etc_color {
+    color: #128746 !important;
+}

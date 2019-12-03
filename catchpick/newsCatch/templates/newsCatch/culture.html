@@ -151,25 +151,25 @@
                                             {% if all_news_data %}
                                                 {% for all_news in all_news_data %}
                                                     {% if all_news.category == "정치" %}
-                                                        <a href="{% url 'newsCatch:politics' %}">{{ all_news.title }}</a>
+                                                        <a href="{% url 'newsCatch:politics' %}" class="politics_color">{{ all_news.title }}</a>
                                                     {% endif %}
                                                     {% if all_news.category == "사회" %}
-                                                        <a href="{% url 'newsCatch:society' %}">{{ all_news.title }}</a>
+                                                        <a href="{% url 'newsCatch:society' %}" class="society_color">{{ all_news.title }}</a>
                                                     {% endif %}
                                                     {% if all_news.category == "경제" %}
-                                                        <a href="{% url 'newsCatch:economy' %}">{{ all_news.title }}</a>
+                                                        <a href="{% url 'newsCatch:economy' %}" class="economy_color">{{ all_news.title }}</a>
                                                     {% endif %}
                                                     {% if all_news.category == "국제" %}
-                                                        <a href="{% url 'newsCatch:international' %}">{{ all_news.title }}</a>
+                                                        <a href="{% url 'newsCatch:international' %}" class="international_color">{{ all_news.title }}</a>
                                                     {% endif %}
                                                     {% if all_news.category == "스포츠" %}
-                                                        <a href="{% url 'newsCatch:sports' %}">{{ all_news.title }}</a>
+                                                        <a href="{% url 'newsCatch:sports' %}" class="sports_color">{{ all_news.title }}</a>
                                                     {% endif %}
                                                     {% if all_news.category == "문화" %}
-                                                        <a href="{% url 'newsCatch:culture' %}">{{ all_news.title }}</a>
+                                                        <a href="{% url 'newsCatch:culture' %}" class="culture_color">{{ all_news.title }}</a>
                                                     {% endif %}
                                                     {% if all_news.category == "기타" %}
-                                                        <a href="{% url 'newsCatch:etc' %}">{{ all_news.title }}</a>
+                                                        <a href="{% url 'newsCatch:etc' %}" class="etc_color">{{ all_news.title }}</a>
                                                     {% endif %}
                                                 {% endfor %}
                                             {% else %}
@@ -213,7 +213,7 @@
                                 <!-- Basic Card Example -->
                                 <div class="card shadow mb-4">
                                     <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">{{ news.title }} / 최대순위: {{ news.maxRank }} / {{ news.time }}</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary culture_color">{{ news.title }} / 최대순위: {{ news.maxRank }} / {{ news.time }}</h6>
                                     </div>
                                     <div class="card-body">
                                         {% if news.news_KH_title != "empty" %}
