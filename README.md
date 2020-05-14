@@ -8,7 +8,7 @@
 이 프로젝트는 파이썬 라이브러리 설치가 필요합니다.
 
 ```
-pip install -r requirments.txt
+pip install -r requirements.txt
 ```
 
 
