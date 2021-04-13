@@ -1,4 +1,4 @@
-# OSS-catchpick [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# Catchpick [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 2019-2 Semester, Kookmin Univ. Computer Science, Open Source Software, Final-term Project.
 해당 프로젝트는 2019년 2학기 국민대학교 소프트웨어학부 '오픈소스소프트웨어'의 조별 프로젝트로 제작되었습니다.
